@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+
+/* @custom-variant dark (&:where([data-theme=dracula-dark], [data-theme=dracula-dark] *)); */
+
+
+html,
+body {
+    @apply text-fg h-full antialiased bg-linear-to-b from-canvas to-canvas2
+}
+
+body {
+    /* --color-canvas: var(--color-green-200);
+    --color-canvas2: var(--color-white);
+    --color-fg: var(--color-black);
+    --color-fg-soft: var(--color-zinc-500);
+    --color-btn: var(--color-green-400);
+    --color-btn-text: var(--color-black); */
+
+    scrollbar-color: var(--color-green-500) var(--color-green-200)
+}
+
+
+@media (prefers-color-scheme: dark) {
+
+    body {
+        --color-canvas: var(--color-zinc-950);
+        --color-fg: var(--color-white);
+        --color-fg-soft: var(--color-zinc-500);
+        --color-btn: var(--color-zinc-700);
+        --color-btn-text: var(--color-white);
+
+        scrollbar-color: var(--color-zinc-500) var(--color-zinc-900)
+    }
+
+}
+
+@theme {
+    --color-canvas: var(--color-green-200);
+    --color-canvas2: var(--color-white);
+    --color-fg: var(--color-black);
+    --color-fg-soft: var(--color-zinc-500);
+    --color-btn: var(--color-green-400);
+    --color-btn-text: var(--color-black);
+}
+
+/* html,
+body {
+    @apply bg-linear-to-b dark:bg-none from-green-300 to-white h-full antialiased bg-white text-black dark:bg-zinc-950 dark:text-zinc-100
+} */
+
+
+/* body {
+    scrollbar-color: var(--color-zinc-500) var(--color-zinc-800);
+} */
+
+@custom-variant dark (&:where([data-theme=dracula-dark], [data-theme=dracula-dark] *));
+
+[data-theme='dracula-light'] {
+    --color-canvas: var(--color-black);
+    --color-fg: var(--color-white);
+    --color-fg-soft: var(--color-gray-400);
+    --color-btn: var(--color-green-400);
+    --color-btn-text: var(--color-black);
+}
+
+[data-theme='dracula-dark'] {
+    --color-canvas: var(--color-slate-900);
+    --color-fg: var(--color-white);
+    --color-fg-soft: var(--color-slate-400);
+    --color-btn: var(--color-slate-700);
+    --color-btn-text: var(--color-white);
+}
