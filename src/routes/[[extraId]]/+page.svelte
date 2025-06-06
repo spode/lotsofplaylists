@@ -9,15 +9,12 @@
 
 	let { data }: { data: PageData } = $props();
 
-	$inspect(data);
 	let songs: CustomSong[] = $state.raw([]);
 	let goodSongs = $derived(shuffle(songs.filter((e) => e.contentDetails?.duration?.includes('M'))));
 	let currentSong: CustomSong | undefined = $state.raw();
 	let nextSong = $derived(goodSongs[(goodSongs.indexOf(currentSong) + 1) % goodSongs.length]);
 
 	function scrollToSong(btn: HTMLButtonElement) {
-		// console.log('will scorll');
-
 		btn.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 	}
 
@@ -33,7 +30,6 @@
 	let buttonElements: HTMLButtonElement[] = $state([]);
 
 	let activePlaylists = $state(new SvelteSet<CustomAlbum>());
-	let reversedActivePlaylists = $derived(Array.from(activePlaylists).reverse());
 	let playerHidden = $state(true);
 </script>
 

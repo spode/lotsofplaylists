@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { CustomAlbum } from '$lib/myinterfaces';
-	import { shuffle } from '$lib/utils';
-	import { setTheme } from 'mode-watcher';
-	import { fade, fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	let { playlists, songs = $bindable(), activePlaylists = $bindable() } = $props();
 

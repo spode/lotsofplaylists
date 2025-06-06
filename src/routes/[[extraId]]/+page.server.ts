@@ -2,6 +2,7 @@ import { CHANNELS } from '$env/static/private';
 import { getChannelPlaylists, getPlaylistWithVideos } from '$lib/server/ytapi';
 import type { youtube_v3 } from '@googleapis/youtube';
 import type { PageServerLoad } from './$types';
+import * as db from "./data"
 
 const channelIds = CHANNELS.split(",")
 
@@ -23,19 +24,16 @@ const fetchPlaylistsWithVideos = async (playlists: youtube_v3.Schema$Playlist[])
 };
 
 
-let timestamp = Date.now()
-
-const myMap = new Map()
 
 export const load = (async ({ params }) => {
 
-    let dbThing = myMap.get("playlists")
+    let data = db.getData()
 
     let extraPlaylistId = params.extraId ?? "PL4iv3Q3xc0skeScJ7XEZoK73INblR0mQA"
 
     const extraPlaylist = getPlaylistWithVideos(extraPlaylistId);
 
-    if (!dbThing) {
+    if (!data) {
 
         // Step 1: Fetch playlists for all channels
         let channelPlaylists = await fetchChannelPlaylists(channelIds);
@@ -43,12 +41,13 @@ export const load = (async ({ params }) => {
         // Step 2: Fetch videos for all the playlists
         let playlistsWithVideos = fetchPlaylistsWithVideos(channelPlaylists);
 
-        myMap.set("playlists", playlistsWithVideos)
+        db.setData(playlistsWithVideos)
 
     }
 
-    dbThing = myMap.get("playlists")
-    let combined = dbThing.then(async e => {
+    data = db.getData();
+
+    let combined = data.then(async e => {
         return [await extraPlaylist, ...e]
     })
 
