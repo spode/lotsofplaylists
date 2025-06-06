@@ -1,10 +1,8 @@
-import { CHANNELS } from '$env/static/private';
-import { getChannelPlaylists, getPlaylistWithVideos } from '$lib/server/ytapi';
-import type { youtube_v3 } from '@googleapis/youtube';
-import type { PageServerLoad } from './$types';
+import { json } from '@sveltejs/kit';
 import * as db from "$lib/data"
 
-const channelIds = CHANNELS.split(",")
+import { getChannelPlaylists, getPlaylistWithVideos } from '$lib/server/ytapi';
+import { youtube_v3 } from '@googleapis/youtube';
 
 // Fetch all playlists for the given channel IDs
 const fetchChannelPlaylists = async (channelIds: string[]) => {
@@ -23,17 +21,9 @@ const fetchPlaylistsWithVideos = async (playlists: youtube_v3.Schema$Playlist[])
     // return playlistVideosPromises;
 };
 
-
-
-export const load = (async ({ params }) => {
-
-    if (params.extraId == "favicon.png") return { playlistsWithVideos: {} }
+export async function GET() {
 
     let data = db.getData()
-
-    let extraPlaylistId = params.extraId ?? "PL4iv3Q3xc0skeScJ7XEZoK73INblR0mQA"
-
-    const extraPlaylist = getPlaylistWithVideos(extraPlaylistId);
 
     if (!data) {
 
@@ -49,9 +39,9 @@ export const load = (async ({ params }) => {
 
     data = db.getData();
 
-    let combined = data.then(async e => {
-        return [await extraPlaylist, ...e]
-    })
+    // const number = Math.floor(Math.random() * 6) + 1;
 
-    return { extraPlaylist, playlistsWithVideos: combined, combined };
-}) satisfies PageServerLoad;
+    // return json(number);
+}
+
+
