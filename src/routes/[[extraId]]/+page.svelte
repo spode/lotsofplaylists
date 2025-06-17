@@ -8,10 +8,17 @@
 	import { SvelteSet } from 'svelte/reactivity';
 
 	let { data }: { data: PageData } = $props();
-
-	let songs: CustomSong[] = $state.raw([]);
-	let goodSongs = $derived(shuffle(songs.filter((e) => e.contentDetails?.duration?.includes('M'))));
 	let currentSong: CustomSong | undefined = $state.raw();
+	let songs: CustomSong[] = $state.raw([]);
+
+	let goodSongs = $derived(shuffle(songs.filter((e) => e.contentDetails?.duration?.includes('M'))));
+
+	// let goodSongs = $derived.by(() => {
+	// 	let songsfilter = shuffle(songs.filter((e) => e.contentDetails?.duration?.includes('M')));
+	// 	if (currentSong) songsfilter = [currentSong, ...songsfilter];
+	// 	return songsfilter;
+	// });
+
 	let nextSong = $derived(goodSongs[(goodSongs.indexOf(currentSong) + 1) % goodSongs.length]);
 
 	function scrollToSong(btn: HTMLButtonElement) {
@@ -39,6 +46,7 @@
 		playlists={data.playlistsWithVideos}
 		bind:songs
 		bind:activePlaylists
+		{currentSong}
 	/>
 
 	{#snippet pending()}

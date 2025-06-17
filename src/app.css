@@ -1,47 +1,57 @@
 @import 'tailwindcss';
 
-/* @custom-variant dark (&:where([data-theme=dracula-dark], [data-theme=dracula-dark] *)); */
-
 
 html,
 body {
-    @apply text-fg h-full antialiased bg-linear-to-b from-canvas to-canvas2
+    @apply h-full antialiased from-canvas1 to-canvas2 bg-linear-to-t
 }
 
-body {
-    /* --color-canvas: var(--color-green-200);
-    --color-canvas2: var(--color-white);
-    --color-fg: var(--color-black);
-    --color-fg-soft: var(--color-zinc-500);
-    --color-btn: var(--color-green-400);
-    --color-btn-text: var(--color-black); */
 
-    scrollbar-color: var(--color-green-500) var(--color-green-200)
+:root {
+    --canvas-color1: var(--color-white);
+    --canvas-color2: var(--color-green-200);
+
+    --fg: var(--color-green);
+    --fg-soft: var(--color-green-400);
+    --btn: var(--color-green-400);
+    --btn-text: var(--color-black);
+
+
+    scrollbar-color: var(--color-green-500) var(--color-green-50);
 }
-
 
 @media (prefers-color-scheme: dark) {
 
-    body {
-        --color-canvas: var(--color-zinc-950);
-        --color-fg: var(--color-white);
-        --color-fg-soft: var(--color-zinc-500);
-        --color-btn: var(--color-zinc-700);
-        --color-btn-text: var(--color-white);
 
-        scrollbar-color: var(--color-zinc-500) var(--color-zinc-900)
+    /* [data-theme="dark"] { */
+
+
+
+
+    :root {
+
+        scrollbar-color: var(--color-zinc-500) var(--color-zinc-900);
+
+        --canvas-color1: var(--color-zinc-950);
+        --canvas-color2: var(--color-zinc-900);
+
+        --fg: var(--color-white);
+        --fg-soft: var(--color-slate-400);
+        --btn: var(--color-slate-700);
+        --btn-text: var(--color-white);
     }
-
 }
 
-@theme {
-    --color-canvas: var(--color-green-200);
-    --color-canvas2: var(--color-white);
-    --color-fg: var(--color-black);
-    --color-fg-soft: var(--color-zinc-500);
-    --color-btn: var(--color-green-400);
-    --color-btn-text: var(--color-black);
+@theme inline {
+    --color-canvas1: var(--canvas-color1);
+    --color-canvas2: var(--canvas-color2);
+
+    --color-fg: var(--fg);
+    --color-fg-soft: var(--color-fg-soft);
+    --color-btn: var(--btn);
+    --color-btn-text: var(--btn-text);
 }
+
 
 /* html,
 body {
@@ -53,7 +63,7 @@ body {
     scrollbar-color: var(--color-zinc-500) var(--color-zinc-800);
 } */
 
-@custom-variant dark (&:where([data-theme=dracula-dark], [data-theme=dracula-dark] *));
+/* @custom-variant dark (&:where([data-theme=dracula-dark], [data-theme=dracula-dark] *));
 
 [data-theme='dracula-light'] {
     --color-canvas: var(--color-black);
@@ -69,4 +79,4 @@ body {
     --color-fg-soft: var(--color-slate-400);
     --color-btn: var(--color-slate-700);
     --color-btn-text: var(--color-white);
-}
+} */

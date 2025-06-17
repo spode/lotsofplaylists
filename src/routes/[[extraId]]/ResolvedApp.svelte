@@ -2,7 +2,7 @@
 	import type { CustomAlbum } from '$lib/myinterfaces';
 	import { fade } from 'svelte/transition';
 
-	let { playlists, songs = $bindable(), activePlaylists = $bindable() } = $props();
+	let { playlists, songs = $bindable(), activePlaylists = $bindable(), currentSong } = $props();
 
 	let channelPlaylists: CustomAlbum[] = $derived(await playlists);
 
@@ -12,14 +12,24 @@
 				!e.snippet?.title?.includes('Rabbids') &&
 				!e.snippet?.title?.includes('Unravel') &&
 				!e.snippet?.title?.includes('Dusk') &&
-				!activePlaylists.has(e)
+				!activePlaylists.has(e) &&
+				e.snippet?.title?.toLowerCase().includes(playlistSearchText)
 		)
 	);
+
+	let playlistSearchText = $state('');
 </script>
 
 <div class="playlists flex flex-1 flex-row overflow-auto lg:gap-2">
 	<div class="flex flex-1 flex-col overflow-y-auto">
-		<h2 class="text-center font-bold">playlists</h2>
+		<div class="flex flex-row items-center">
+			<h2 class="text-center font-bold">playlists</h2>
+			<input
+				type="search"
+				bind:value={playlistSearchText}
+				class="focus:ring-opacity-50 bg-canvas1 mt-1 block w-full rounded-md border-gray-300 p-1 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200"
+			/>
+		</div>
 
 		<div
 			style="scrollbar-gutter: stable;"
